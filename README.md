@@ -28,7 +28,7 @@
 ### تبدیل متن تایپ‌شده با صفحه‌کلید انگلیسی به فارسی
 
 <p align="center">
-<img src="assets/demo-en-to-fa.gif" width="500" alt="English to Persian">
+<img src="assets/demo-en-to-fa.gif" width="300" alt="English to Persian">
 </p>
 
 ---
