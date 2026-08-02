@@ -23,31 +23,31 @@
 
 ## پیش‌نمایش
 
-### تبدیل متن تایپ‌شده با صفحه‌کلید انگلیسی به فارسی
+ تبدیل متن تایپ‌شده با صفحه‌کلید انگلیسی به فارسی
 
 <p align="center">
-<img src="assets/demo-en-to-fa.gif" width="300" alt="English to Persian">
+<img src="assets/demo-en-to-fa.gif" width="250" alt="English to Persian">
 </p>
 
 
-### تبدیل متن تایپ‌شده با صفحه‌کلید فارسی به انگلیسی
+ تبدیل متن تایپ‌شده با صفحه‌کلید فارسی به انگلیسی
 
 <p align="center">
-<img src="assets/demo-fa-to-en.gif" width="300" alt="Persian to English">
+<img src="assets/demo-fa-to-en.gif" width="250" alt="Persian to English">
 </p>
 
 
-### اصلاح آخرین کلمه
+ اصلاح آخرین کلمه
 
 <p align="center">
-<img src="assets/demo-last-word.gif" width="300" alt="Correct Last Word">
+<img src="assets/demo-last-word.gif" width="250" alt="Correct Last Word">
 </p>
 
 
-### اصلاح متن انتخاب‌شده یا کل خط
+ اصلاح متن انتخاب‌شده یا کل خط
 
 <p align="center">
-<img src="assets/demo-selection.gif" width="300" alt="Correct Selection">
+<img src="assets/demo-selection.gif" width="250" alt="Correct Selection">
 </p>
 
 ---
