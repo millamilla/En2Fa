@@ -29,7 +29,6 @@
 <img src="assets/demo-en-to-fa.gif" width="300" alt="English to Persian">
 </p>
 
----
 
 ### تبدیل متن تایپ‌شده با صفحه‌کلید فارسی به انگلیسی
 
