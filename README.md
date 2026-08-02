@@ -28,7 +28,7 @@
 ### تبدیل متن تایپ‌شده با صفحه‌کلید انگلیسی به فارسی
 
 <p align="center">
-<img src="assets/en2fa.gif" width="700" alt="English to Persian">
+<img src="assets/demo-en-to-fa.gif" width="700" alt="English to Persian">
 </p>
 
 ---
@@ -36,7 +36,7 @@
 ### تبدیل متن تایپ‌شده با صفحه‌کلید فارسی به انگلیسی
 
 <p align="center">
-<img src="assets/fa2en.gif" width="700" alt="Persian to English">
+<img src="assets/demo-fa-to-en.gif" width="700" alt="Persian to English">
 </p>
 
 ---
@@ -44,7 +44,7 @@
 ### اصلاح آخرین کلمه
 
 <p align="center">
-<img src="assets/last-word.gif" width="700" alt="Correct Last Word">
+<img src="assets/demo-last-word.gif" width="700" alt="Correct Last Word">
 </p>
 
 ---
@@ -52,7 +52,7 @@
 ### اصلاح متن انتخاب‌شده یا کل خط
 
 <p align="center">
-<img src="assets/selection.gif" width="700" alt="Correct Selection">
+<img src="assets/demo-selection.gif" width="700" alt="Correct Selection">
 </p>
 
 ---
