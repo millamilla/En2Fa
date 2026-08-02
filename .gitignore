@@ -1,0 +1,13 @@
+# AutoHotkey compiled files
+*.exe
+
+# Backup files
+*.bak
+
+# Windows files
+Thumbs.db
+desktop.ini
+
+# Editor settings
+.vscode/
+.idea/
