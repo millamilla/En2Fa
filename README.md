@@ -36,7 +36,6 @@
 <img src="assets/demo-fa-to-en.gif" width="300" alt="Persian to English">
 </p>
 
----
 
 ### اصلاح آخرین کلمه
 
@@ -44,7 +43,6 @@
 <img src="assets/demo-last-word.gif" width="300" alt="Correct Last Word">
 </p>
 
----
 
 ### اصلاح متن انتخاب‌شده یا کل خط
 
