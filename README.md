@@ -44,7 +44,7 @@
 </p>
 
 
- اصلاح متن انتخاب‌شده یا کل خط
+ اصلاح متن انتخاب‌شده
 
 <p align="center">
 <img src="assets/demo-selection.gif" width="250" alt="Correct Selection">
