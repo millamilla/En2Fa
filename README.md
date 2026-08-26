@@ -8,7 +8,7 @@
 
 **نسخه 2.0.0**
 
-[دانلود آخرین نسخه](../../releases/latest)
+[دانلود آخرین نسخه](https://github.com/millamilla/En2Fa/releases/latest)
 
 ---
 </div>
@@ -132,7 +132,7 @@
 
 آخرین نسخه برنامه را می‌توانید از بخش **Releases** دریافت کنید.
 
-[دانلود En2Fa](../../releases/latest)
+[دانلود En2Fa](https://github.com/millamilla/En2Fa/releases/latest)
 
 ---
 
