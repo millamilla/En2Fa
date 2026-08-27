@@ -492,10 +492,18 @@ GetPersianContextChar(char) {
     return contextMap.Has(char) ? contextMap[char] : char
 }
 
-transformeText(text, map) {
+; ===============================================================
+; اصلاح تابع transformText با اضافه کردن پارامتر defaultLang
+; و حذف شاخه‌های تکراری
+; ===============================================================
+transformText(text, map, defaultLang := "") {
     result := ""
     chars := StrSplit(text)
     len := chars.Length
+    ; اگر زبان مشخص نشده یک بار تشخیص بده
+    if (defaultLang = "") {
+        defaultLang := DetectTextLanguage(text)
+    }
     Loop len {
         i := A_Index
         char := chars[i]
@@ -506,18 +514,16 @@ transformeText(text, map) {
             else if (score < 0)
                 result .= GetPersianContextChar(char)
             else {
-                lang := DetectTextLanguage(text)
-                if (lang = "EN")
+                ; استفاده از defaultLang به جای فراخوانی تکراری DetectTextLanguage
+                if (defaultLang = "EN")
                     result .= GetEnglishContextChar(char)
-                else if (lang = "FA")
+                else if (defaultLang = "FA")
                     result .= GetPersianContextChar(char)
                 else
                     result .= char
             }
         }
-        else if (char ~= "[0-9]") {
-            result .= map.Has(char) ? map[char] : char
-        }
+        ; حذف else if اضافی و ادغام در else
         else {
             result .= map.Has(char) ? map[char] : char
         }
@@ -562,16 +568,17 @@ GetContextScore(chars, index) {
 }
 
 ; ===============================================================
-; Hotkey Functions
+; اصلاح نام توابع: transformeHotkey -> transformHotkey
+; و تغییر lastCall به 350ms و بازیابی کلیپ‌بورد در finally
 ; ===============================================================
-transformeHotkey() {
+transformHotkey() {
     static isRunning := false
     if (isRunning)
         return
     isRunning := true
     static lastCall := 0
     currentTime := A_TickCount
-    if (currentTime - lastCall < 800) {
+    if (currentTime - lastCall < 350) {   ; کاهش از 800 به 350
         isRunning := false
         return
     }
@@ -633,7 +640,9 @@ transformeHotkey() {
             A_Clipboard := oldClipboard
             return
         }
-        converted := transformeText(trimmedText, GetKeyMap())
+        ; تشخیص زبان یک بار قبل از تبدیل
+        lang := DetectTextLanguage(trimmedText)
+        converted := transformText(trimmedText, GetKeyMap(), lang)
         A_Clipboard := converted
         if (ClipWait(0.5)) {
             SendInput("^v")
@@ -656,22 +665,26 @@ transformeHotkey() {
             SendInput("{Alt down}{Shift down}{Shift up}{Alt up}")
         }
         Sleep(100)
-        A_Clipboard := oldClipboard
         ShowMessage("✅ متن تبدیل شد", 700)
     } finally {
+        ; بازیابی کلیپ‌بورد در finally
+        A_Clipboard := oldClipboard
         isRunning := false
     }
 }
 
-
-transformeLastWord() {
+; ===============================================================
+; اصلاح نام تابع transformeLastWord -> transformLastWord
+; و تغییر lastCall به 350ms و بازیابی کلیپ‌بورد در finally
+; ===============================================================
+transformLastWord() {
     static isRunning := false
     if (isRunning)
         return
     isRunning := true
     static lastCall := 0
     currentTime := A_TickCount
-    if (currentTime - lastCall < 800) {
+    if (currentTime - lastCall < 350) {   ; کاهش از 800 به 350
         isRunning := false
         return
     }
@@ -722,7 +735,9 @@ transformeLastWord() {
                 SendInput("{Right}")
             return
         }
-        converted := transformeText(lastWord, GetKeyMap())
+        ; تشخیص زبان یک بار قبل از تبدیل
+        lang := DetectTextLanguage(lastWord)
+        converted := transformText(lastWord, GetKeyMap(), lang)
         if (wasFullSelect) {
             A_Clipboard := prefix . converted
             if (ClipWait(0.5)) {
@@ -744,11 +759,12 @@ transformeLastWord() {
             SendInput("{Alt down}{Shift down}{Shift up}{Alt up}")
         }
         Sleep(150)
-        A_Clipboard := oldClipboard
     } finally {
+        A_Clipboard := oldClipboard
         isRunning := false
     }
 }
+
 ; ===============================================================
 ; Hotkey Management
 ; ===============================================================
@@ -758,7 +774,7 @@ SetupHotkey(hotkeyValue) {
         try Hotkey(currentHotkeyRef, "Off")
     }
     try {
-        Hotkey(hotkeyValue, (*) => transformeHotkey(), "On")
+        Hotkey(hotkeyValue, (*) => transformHotkey(), "On")
         currentHotkeyRef := hotkeyValue
         return true
     }
@@ -771,7 +787,7 @@ SetupHotkey2(hotkeyValue) {
         try Hotkey(currentHotkeyRef, "Off")
     }
     try {
-        Hotkey(hotkeyValue, (*) => transformeLastWord(), "On")
+        Hotkey(hotkeyValue, (*) => transformLastWord(), "On")
         currentHotkeyRef := hotkeyValue
         return true
     }
@@ -1164,7 +1180,7 @@ class ShortcutManager {
     ]
 
     ; ===============================================================
-    ; نام ماه‌های شمسی
+    ; نام ماه‌های شمسی (یک آرایه کافی است)
     ; ===============================================================
     static JalaliMonthNames := [
         "فروردین",
@@ -1181,35 +1197,10 @@ class ShortcutManager {
         "اسفند"
     ]
 
-    static JalaliMonthNamesShort := [
-        "فروردین",
-        "اردیبهشت",
-        "خرداد",
-        "تیر",
-        "مرداد",
-        "شهریور",
-        "مهر",
-        "آبان",
-        "آذر",
-        "دی",
-        "بهمن",
-        "اسفند"
-    ]
-
     ; ===============================================================
-    ; نام روزهای هفته
+    ; نام روزهای هفته (یک آرایه کافی است)
     ; ===============================================================
     static JalaliWeekDays := [
-        "یک‌شنبه",
-        "دوشنبه",
-        "سه‌شنبه",
-        "چهارشنبه",
-        "پنجشنبه",
-        "جمعه",
-        "شنبه"
-    ]
-
-    static JalaliWeekDaysShort := [
         "یک‌شنبه",
         "دوشنبه",
         "سه‌شنبه",
@@ -1290,21 +1281,19 @@ class ShortcutManager {
 
         weekDayIndex := Integer(FormatTime(A_Now, "WDay"))
         weekDayName := this.JalaliWeekDays[weekDayIndex]
-        weekDayNameShort := this.JalaliWeekDaysShort[weekDayIndex]
 
         jyStr := Format("{:04d}", jy)
         jmStr := Format("{:02d}", jm)
         jdStr := Format("{:02d}", jd)
 
         monthName := this.JalaliMonthNames[jm]
-        monthNameShort := this.JalaliMonthNamesShort[jm]
 
         res := fmt
         res := StrReplace(res, "yyyy", jyStr)
         res := StrReplace(res, "MMMM", monthName)
-        res := StrReplace(res, "MMM", monthNameShort)
+        res := StrReplace(res, "MMM", monthName)  ; برای کوتاه از همان نام کامل استفاده می‌شود
         res := StrReplace(res, "dddd", weekDayName)
-        res := StrReplace(res, "ddd", weekDayNameShort)
+        res := StrReplace(res, "ddd", weekDayName)
         res := StrReplace(res, "MM", jmStr)
         res := StrReplace(res, "dd", jdStr)
 
